@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Integer, String
+from sqlalchemy import DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
 from app.database.base import Base
 
 
-class User(Base):
-    __tablename__ = "users"
+class Workspace(Base):
+    __tablename__ = "workspaces"
 
     id: Mapped[int] = mapped_column(
         Integer,
@@ -16,26 +16,18 @@ class User(Base):
         index=True,
     )
 
-    full_name: Mapped[str] = mapped_column(
+    name: Mapped[str] = mapped_column(
         String(100),
         nullable=False,
     )
 
-    email: Mapped[str] = mapped_column(
-        String(255),
-        unique=True,
-        index=True,
-        nullable=False,
+    description: Mapped[str | None] = mapped_column(
+        String(500),
+        nullable=True,
     )
 
-    hashed_password: Mapped[str] = mapped_column(
-        String(255),
-        nullable=False,
-    )
-
-    is_active: Mapped[bool] = mapped_column(
-        Boolean,
-        default=True,
+    owner_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
     )
 
@@ -52,8 +44,7 @@ class User(Base):
         nullable=False,
     )
 
-    workspaces = relationship(
-        "Workspace",
-        back_populates="owner",
-        cascade="all, delete-orphan",
+    owner = relationship(
+        "User",
+        back_populates="workspaces",
     )
