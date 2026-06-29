@@ -8,6 +8,7 @@ from alembic import context
 from app.database.base import Base
 from app.models.user import User
 from app.models.workspace import Workspace
+from app.models.dataset import Dataset
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

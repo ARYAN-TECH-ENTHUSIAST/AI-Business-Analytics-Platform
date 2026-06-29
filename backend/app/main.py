@@ -1,12 +1,10 @@
 from fastapi import FastAPI
- 
-from app.core.config import settings
-
 from sqlalchemy import text
 
-from app.database.connection import engine
-
 from app.api.v1.auth import router as auth_router
+from app.api.v1.workspace import router as workspace_router
+from app.core.config import settings
+from app.database.connection import engine
 
 app = FastAPI(
     title=settings.app_name,
@@ -14,20 +12,28 @@ app = FastAPI(
 )
 
 app.include_router(auth_router, prefix="/api/v1")
+app.include_router(workspace_router, prefix="/api/v1")
 
 
 @app.get("/")
-def root() -> dict[str, str]:
-    return {"message": "AI Business Intelligence Platform API"}
+def root():
+    return {
+        "message": "AI Business Intelligence Platform API",
+    }
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "healthy"}
+def health():
+    return {
+        "status": "healthy",
+    }
+
 
 @app.get("/health/db")
-def database_health() -> dict[str, str]:
+def database_health():
     with engine.connect() as connection:
         connection.execute(text("SELECT 1"))
 
-    return {"database": "connected"}
+    return {
+        "database": "connected",
+    }

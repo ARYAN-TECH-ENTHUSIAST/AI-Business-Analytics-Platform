@@ -48,3 +48,9 @@ class Workspace(Base):
         "User",
         back_populates="workspaces",
     )
+
+    datasets = relationship(
+        "Dataset",
+        back_populates="workspace",
+        cascade="all, delete-orphan",
+    )
