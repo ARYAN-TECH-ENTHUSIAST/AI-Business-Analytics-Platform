@@ -8,6 +8,7 @@ from app.database.connection import engine
 from app.api.v1.dataset import router as dataset_router
 from app.api.v1.analytics import router as analytics_router
 from app.api.v1.dashboard import router as dashboard_router
+from app.api.v1.chart import router as chart_router
 
 app = FastAPI(
     title=settings.app_name,
@@ -23,6 +24,10 @@ app.include_router(
 )
 app.include_router(
     dashboard_router,
+    prefix="/api/v1",
+)
+app.include_router(
+    chart_router,
     prefix="/api/v1",
 )
 
