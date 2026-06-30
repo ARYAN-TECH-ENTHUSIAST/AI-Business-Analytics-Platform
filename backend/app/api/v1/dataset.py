@@ -12,6 +12,7 @@ from app.dependencies.auth import get_current_user
 from app.models.user import User
 from app.services.dataset_service import DatasetService
 from app.schemas.dataset import (
+    CleaningOptions,
     DatasetPreview,
     DatasetProfile,
     DatasetResponse,
@@ -74,5 +75,24 @@ def profile_dataset(
 
     return service.profile_dataset(
         dataset_id,
+        current_user,
+    )
+
+@router.post(
+    "/{dataset_id}/clean",
+    response_model=DatasetResponse,
+)
+def clean_dataset(
+    dataset_id: int,
+    options: CleaningOptions,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    service = DatasetService(db)
+
+    return service.clean_dataset(
+        dataset_id,
+        options,
         current_user,
     )

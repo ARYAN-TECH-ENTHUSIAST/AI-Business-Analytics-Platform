@@ -31,3 +31,16 @@ class DatasetRepository:
             .filter(Dataset.id == dataset_id)
             .first()
         )
+
+    def get_all_by_workspace(
+        self,
+        workspace_id: int,
+    ) -> list[Dataset]:
+
+        return (
+            self.db.query(Dataset)
+            .filter(
+                Dataset.workspace_id == workspace_id
+            )
+            .all()
+        )

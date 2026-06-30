@@ -13,6 +13,12 @@ from app.utils.data_loader import load_dataframe
 from app.schemas.dataset import DatasetProfile
 from app.utils.profiler import generate_profile
 
+from app.schemas.dataset import CleaningOptions
+from app.utils.data_cleaner import clean_dataframe
+from app.utils.file_storage import (
+    save_cleaned_dataframe,
+)
+
 
 ALLOWED_EXTENSIONS = {
     ".csv",
@@ -152,3 +158,61 @@ class DatasetService:
         )
 
         return generate_profile(df)
+
+    def clean_dataset(
+        self,
+        dataset_id: int,
+        options: CleaningOptions,
+        current_user: User,
+    ) -> DatasetResponse:
+
+        dataset = self.dataset_repository.get_by_id(
+            dataset_id
+        )
+
+        if dataset is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Dataset not found",
+            )
+
+        workspace = self.workspace_repository.get_by_id(
+            dataset.workspace_id,
+        )
+
+        if workspace is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Workspace not found",
+            )
+
+        if workspace.owner_id != current_user.id:
+            raise HTTPException(
+                status_code=403,
+                detail="Access denied",
+            )
+
+        df = load_dataframe(
+            dataset.file_path,
+        )
+
+        cleaned_df = clean_dataframe(
+            df,
+            options,
+        )
+
+        cleaned_path = save_cleaned_dataframe(
+            cleaned_df,
+            dataset.file_path,
+        )
+
+        cleaned_dataset = self.dataset_repository.create(
+            name=f"{dataset.name}_cleaned",
+            original_filename=cleaned_path.split("\\")[-1],
+            file_path=cleaned_path,
+            file_type=dataset.file_type,
+            file_size=Path(cleaned_path).stat().st_size,
+            workspace_id=dataset.workspace_id,
+        )
+
+        return cleaned_dataset
