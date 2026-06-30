@@ -5,6 +5,7 @@ from app.api.v1.auth import router as auth_router
 from app.api.v1.workspace import router as workspace_router
 from app.core.config import settings
 from app.database.connection import engine
+from app.api.v1.dataset import router as dataset_router
 
 app = FastAPI(
     title=settings.app_name,
@@ -13,6 +14,7 @@ app = FastAPI(
 
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(workspace_router, prefix="/api/v1")
+app.include_router(dataset_router,prefix="/api/v1")
 
 
 @app.get("/")

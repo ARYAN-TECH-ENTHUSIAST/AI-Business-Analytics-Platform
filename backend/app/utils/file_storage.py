@@ -31,3 +31,33 @@ def save_dataset_file(
         str(file_path),
         file.filename,
     )
+
+from pathlib import Path
+
+import pandas as pd
+
+
+def save_cleaned_dataframe(
+    dataframe: pd.DataFrame,
+    original_path: str,
+) -> str:
+
+    path = Path(original_path)
+
+    cleaned_path = (
+        path.parent
+        / f"{path.stem}_cleaned{path.suffix}"
+    )
+
+    if path.suffix.lower() == ".csv":
+        dataframe.to_csv(
+            cleaned_path,
+            index=False,
+        )
+    else:
+        dataframe.to_excel(
+            cleaned_path,
+            index=False,
+        )
+
+    return str(cleaned_path)

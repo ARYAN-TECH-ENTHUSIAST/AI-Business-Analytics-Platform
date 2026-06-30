@@ -20,3 +20,14 @@ class DatasetRepository:
         self.db.refresh(dataset)
 
         return dataset
+
+    def get_by_id(
+        self,
+        dataset_id: int,
+    ) -> Dataset | None:
+
+        return (
+            self.db.query(Dataset)
+            .filter(Dataset.id == dataset_id)
+            .first()
+        )
