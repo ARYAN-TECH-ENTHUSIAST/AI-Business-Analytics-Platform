@@ -5,9 +5,6 @@ import Link from "next/link";
 const menuItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Workspaces", href: "/workspaces" },
-  { label: "Datasets", href: "/datasets" },
-  { label: "Analytics", href: "/analytics" },
-  { label: "AI Assistant", href: "/ai" },
 ];
 
 export default function Sidebar() {
