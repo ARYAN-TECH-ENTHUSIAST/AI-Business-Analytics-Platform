@@ -96,3 +96,19 @@ def clean_dataset(
         options,
         current_user,
     )
+
+@router.get(
+    "/workspace/{workspace_id}",
+    response_model=list[DatasetResponse],
+)
+def list_datasets(
+    workspace_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    service = DatasetService(db)
+
+    return service.list_datasets(
+        workspace_id,
+        current_user,
+    )

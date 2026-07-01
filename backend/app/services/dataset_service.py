@@ -216,3 +216,28 @@ class DatasetService:
         )
 
         return cleaned_dataset
+
+    def list_datasets(
+        self,
+        workspace_id: int,
+        current_user: User,
+    ):
+        workspace = self.workspace_repository.get_by_id(
+            workspace_id
+        )
+
+        if workspace is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Workspace not found",
+            )
+
+        if workspace.owner_id != current_user.id:
+            raise HTTPException(
+                status_code=403,
+                detail="Access denied",
+            )
+
+        return self.dataset_repository.get_by_workspace_id(
+            workspace_id
+        )

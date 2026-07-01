@@ -44,3 +44,16 @@ class DatasetRepository:
             )
             .all()
         )
+
+    def get_by_workspace_id(
+        self,
+        workspace_id: int,
+    ):
+        return (
+            self.db.query(Dataset)
+            .filter(
+                Dataset.workspace_id == workspace_id
+            )
+            .order_by(Dataset.created_at.desc())
+            .all()
+        )
