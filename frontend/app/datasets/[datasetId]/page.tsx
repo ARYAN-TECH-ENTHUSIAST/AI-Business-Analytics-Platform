@@ -11,6 +11,8 @@ import { useDatasetProfile } from "@/hooks/useDatasetProfile";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import NumericSummaryTable from "@/components/dataset/NumericSummaryTable";
 
+import { useDashboard } from "@/hooks/useDashboard";
+
 export default function DatasetPreviewPage() {
   const params = useParams();
 
@@ -30,6 +32,10 @@ export default function DatasetPreviewPage() {
     data: analytics,
   } = useAnalytics(datasetId);
 
+  const {
+    data: dashboard,
+  } = useDashboard(datasetId);
+
   return (
     <DashboardLayout>
       <div className="space-y-8">
@@ -43,6 +49,18 @@ export default function DatasetPreviewPage() {
             Explore your uploaded dataset.
           </p>
         </div>
+
+        {dashboard && (
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {dashboard.kpis.map((kpi) => (
+              <ProfileCard
+                key={kpi.title}
+                title={kpi.title}
+                value={kpi.value}
+              />
+            ))}
+          </div>
+        )}
 
         {profile && (
           <div className="grid gap-6 md:grid-cols-3">
