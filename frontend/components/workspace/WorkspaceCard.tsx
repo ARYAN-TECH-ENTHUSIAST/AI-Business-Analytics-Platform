@@ -1,4 +1,5 @@
-import Card from "../ui/Card";
+import Card from "@/components/ui/Card";
+
 import { Workspace } from "@/types/workspace";
 
 interface Props {
@@ -10,18 +11,16 @@ export default function WorkspaceCard({
 }: Props) {
   return (
     <Card>
-      <h2 className="text-xl font-semibold">
+      <h3 className="text-lg font-semibold">
         {workspace.name}
-      </h2>
+      </h3>
 
-      <p className="mt-3 text-gray-600">
+      <p className="mt-2 text-sm text-gray-600">
         {workspace.description ||
           "No description"}
       </p>
 
       <p className="mt-6 text-xs text-gray-400">
-        Created:
-        {" "}
         {new Date(
           workspace.created_at
         ).toLocaleDateString()}
