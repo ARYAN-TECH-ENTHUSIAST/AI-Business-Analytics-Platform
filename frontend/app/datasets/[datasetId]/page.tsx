@@ -13,10 +13,22 @@ import NumericSummaryTable from "@/components/dataset/NumericSummaryTable";
 
 import { useDashboard } from "@/hooks/useDashboard";
 
+import { useCharts } from "@/hooks/useCharts";
+import ChartsSection from "@/components/dataset/ChartsSection";
+
+import { useState } from "react";
+import { useAI } from "@/hooks/useAI";
+import AIInsights from "@/components/dataset/AIInsights";
+
+import Link from "next/link";
+
 export default function DatasetPreviewPage() {
   const params = useParams();
 
   const datasetId = Number(params.datasetId);
+
+  const [generateAI, setGenerateAI] =
+    useState(false);
 
   const {
     data: preview,
@@ -36,19 +48,43 @@ export default function DatasetPreviewPage() {
     data: dashboard,
   } = useDashboard(datasetId);
 
+  const {
+    data: charts,
+  } = useCharts(datasetId);
+
+  const {
+    data: aiInsights,
+    isLoading: aiLoading,
+    error: aiError,
+  } = useAI(
+    datasetId,
+    generateAI,
+  );
+
   return (
     <DashboardLayout>
       <div className="space-y-8">
 
-        <div>
-          <h1 className="text-3xl font-bold">
-            Dataset Preview
-          </h1>
+        <div className="flex items-center justify-between">
 
-          <p className="mt-2 text-gray-600">
-            Explore your uploaded dataset.
-          </p>
+          <div>
+            <h1 className="text-3xl font-bold">
+              Dataset Analysis
+            </h1>
+
+            <p className="mt-2 text-gray-600">
+              Explore analytics and AI insights.
+            </p>
         </div>
+
+        <Link
+          href="/workspaces"
+          className="rounded-lg border px-4 py-2 hover:bg-gray-100"
+        >
+          Back to Workspaces
+        </Link>
+
+    </div>
 
         {dashboard && (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -156,6 +192,59 @@ export default function DatasetPreviewPage() {
             columns={analytics.numeric_columns}
           />
         )}
+
+        {charts && (
+          <ChartsSection
+            charts={charts}
+          />
+        )}
+
+        <div className="rounded-xl border bg-white p-6">
+
+          <div className="flex items-center justify-between">
+
+            <div>
+
+              <h2 className="text-xl font-semibold">
+                AI Business Insights
+              </h2>
+
+              <p className="mt-1 text-sm text-gray-500">
+                Generate business insights using AI.
+              </p>
+
+            </div>
+
+            <button
+              onClick={() => setGenerateAI(true)}
+              className="rounded-lg bg-black px-4 py-2 text-white hover:bg-gray-800"
+            >
+              Generate Insights
+            </button>
+
+        </div>
+
+        {aiLoading && (
+          <p className="mt-6">
+            Generating insights...
+          </p>
+        )}
+
+        {aiError && (
+          <div className="mt-6 rounded-lg border border-yellow-300 bg-yellow-50 p-4">
+            AI is currently unavailable. Configure your AI provider to enable this feature.
+          </div>
+        )}
+
+        {aiInsights && (
+          <div className="mt-6">
+            <AIInsights
+              insights={aiInsights}
+            />
+          </div>
+        )}
+
+    </div>
 
         {isLoading && (
           <div className="rounded-xl border bg-white p-8 text-center">

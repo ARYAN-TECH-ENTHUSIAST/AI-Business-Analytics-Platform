@@ -23,6 +23,8 @@ export default function UploadDatasetForm({
   ) {
     e.preventDefault();
 
+    const form = e.currentTarget;
+
     if (!file) return;
 
     await uploadMutation.mutateAsync({
@@ -32,7 +34,7 @@ export default function UploadDatasetForm({
 
     setFile(null);
 
-    e.currentTarget.reset();
+    form.reset();
   }
 
   return (

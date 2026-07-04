@@ -16,7 +16,7 @@ import Button from "@/components/ui/Button";
 import { register as registerUser } from "@/services/auth";
 
 const schema = z.object({
-  username: z.string().min(3),
+  full_name: z.string().min(3),
   email: z.string().email(),
   password: z.string().min(6),
 });
@@ -67,8 +67,8 @@ export default function RegisterPage() {
         >
           <Input
             label="Username"
-            error={errors.username?.message}
-            {...register("username")}
+            error={errors.full_name?.message}
+            {...register("full_name")}
           />
 
           <Input
