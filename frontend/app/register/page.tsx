@@ -3,11 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 import { useForm } from "react-hook-form";
-
 import { z } from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import toast from "react-hot-toast";
 
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
@@ -26,6 +28,8 @@ type FormData = z.infer<typeof schema>;
 export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -41,13 +45,13 @@ export default function RegisterPage() {
 
       await registerUser(data);
 
-      alert("Registration successful");
+      toast.success("Registration successful");
 
       reset();
 
-      window.location.href = "/login";
+      router.push("/login");
     } catch {
-      alert("Registration failed");
+      toast.error("Registration failed");
     } finally {
       setLoading(false);
     }
@@ -56,7 +60,6 @@ export default function RegisterPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100">
       <Card className="w-full max-w-md">
-
         <h1 className="mb-6 text-3xl font-bold">
           Create Account
         </h1>
@@ -66,7 +69,7 @@ export default function RegisterPage() {
           className="space-y-5"
         >
           <Input
-            label="Username"
+            label="Full Name"
             error={errors.full_name?.message}
             {...register("full_name")}
           />
@@ -91,7 +94,6 @@ export default function RegisterPage() {
           >
             Register
           </Button>
-
         </form>
 
         <p className="mt-6 text-center text-sm">
@@ -103,7 +105,6 @@ export default function RegisterPage() {
             Login
           </Link>
         </p>
-
       </Card>
     </main>
   );

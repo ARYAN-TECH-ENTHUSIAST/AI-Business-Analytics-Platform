@@ -1,43 +1,64 @@
-from openai import APIError
+# from app.core.ai_client import get_gemini_client
+# from app.core.config import settings
+# from app.core.prompts import SYSTEM_PROMPT
 
-from app.core.ai_client import get_openai_client
+# from app.schemas.ai import AIInsightResponse
+
+
+# class AIService:
+
+#     def generate_insights(
+#         self,
+#         context: str,
+#     ) -> AIInsightResponse:
+
+#         client = get_gemini_client()
+
+#         response = client.models.generate_content(
+#             model=settings.gemini_model,
+#             contents=f"""
+# {SYSTEM_PROMPT}
+
+# {context}
+# """,
+#         )
+
+#         content = response.text.strip()
+
+#         if content.startswith("```"):
+#             content = content.replace("```json", "")
+#             content = content.replace("```", "")
+#             content = content.strip()
+
+#             return AIInsightResponse.model_validate_json(content)
+
+
+
+
+from app.core.ai_client import get_gemini_client
+from app.core.config import settings
 from app.core.prompts import SYSTEM_PROMPT
-
 from app.schemas.ai import AIInsightResponse
 
 
 class AIService:
 
-    def generate_insights(
-        self,
-        context: str,
-    ) -> AIInsightResponse:
+    def generate_insights(self, context: str) -> AIInsightResponse:
+        client = get_gemini_client()
 
-        try:
-            
-            client = get_openai_client()
-            response = client.chat.completions.create(
-                model="gpt-4.1-mini",
-                response_format={
-                    "type": "json_object",
-                },
-                messages=[
-                    {
-                        "role": "system",
-                        "content": SYSTEM_PROMPT,
-                    },
-                    {
-                        "role": "user",
-                        "content": context,
-                    },
-                ],
-            )
+        response = client.models.generate_content(
+            model=settings.gemini_model,
+            contents=f"{SYSTEM_PROMPT}\n\n{context}",
+        )
 
-            return AIInsightResponse.model_validate_json(
-                response.choices[0].message.content
-            )
+        print("\n===== GEMINI RAW RESPONSE =====")
+        print(response.text)
+        print("===============================\n")
 
-        except APIError as exc:
-            raise RuntimeError(
-                f"OpenAI Error: {exc}"
-            )
+        content = response.text.strip()
+
+        if content.startswith("```"):
+            content = content.replace("```json", "")
+            content = content.replace("```", "").strip()
+
+        return AIInsightResponse.model_validate_json(content)

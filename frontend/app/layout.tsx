@@ -1,6 +1,8 @@
 import "./globals.css";
 import { ReactNode } from "react";
 
+import { Toaster } from "react-hot-toast";
+
 import Providers from "./providers";
 
 export const metadata = {
@@ -17,7 +19,16 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+
           {children}
+
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+            }}
+          />
+
         </Providers>
       </body>
     </html>

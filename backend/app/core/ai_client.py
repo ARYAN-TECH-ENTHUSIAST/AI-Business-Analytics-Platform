@@ -1,14 +1,14 @@
-import os
+from google import genai
 
-from openai import OpenAI
+from app.core.config import settings
 
 
-def get_openai_client() -> OpenAI:
-    api_key = os.getenv("OPENAI_API_KEY")
-
-    if not api_key:
+def get_gemini_client() -> genai.Client:
+    if not settings.gemini_api_key:
         raise RuntimeError(
-            "OPENAI_API_KEY is not configured."
+            "GEMINI_API_KEY is not configured."
         )
 
-    return OpenAI(api_key=api_key)
+    return genai.Client(
+        api_key=settings.gemini_api_key,
+    )

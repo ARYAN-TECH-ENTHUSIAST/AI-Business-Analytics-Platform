@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import toast from "react-hot-toast";
 
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
@@ -22,6 +26,8 @@ type FormData = z.infer<typeof schema>;
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -36,9 +42,11 @@ export default function LoginPage() {
 
       await login(data);
 
-      window.location.href = "/dashboard";
+      toast.success("Login successful");
+
+      router.push("/dashboard");
     } catch {
-      alert("Invalid credentials");
+      toast.error("Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -47,7 +55,6 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100">
       <Card className="w-full max-w-md">
-
         <h1 className="mb-6 text-3xl font-bold">
           Sign In
         </h1>
@@ -87,7 +94,6 @@ export default function LoginPage() {
             Register
           </Link>
         </p>
-
       </Card>
     </main>
   );
