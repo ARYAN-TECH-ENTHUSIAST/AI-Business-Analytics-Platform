@@ -10,14 +10,20 @@ export default function ProfileCard({
   value,
 }: Props) {
   return (
-    <Card>
-      <p className="text-sm text-gray-500">
-        {title}
-      </p>
+    <Card className="h-full">
 
-      <h2 className="mt-2 text-3xl font-bold">
-        {value}
-      </h2>
+      <div className="space-y-2">
+
+        <p className="text-sm font-medium uppercase tracking-wide text-gray-500">
+          {title}
+        </p>
+
+        <h2 className="text-3xl font-bold text-gray-900">
+          {value}
+        </h2>
+
+      </div>
+
     </Card>
   );
 }
