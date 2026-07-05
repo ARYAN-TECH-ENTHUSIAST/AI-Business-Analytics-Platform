@@ -23,15 +23,23 @@ export default function DashboardLayout({
   }, [router]);
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div className="min-h-screen bg-slate-50">
+      <div className="flex">
 
-      <div className="flex min-h-screen flex-1 flex-col bg-gray-50">
-        <Navbar />
+        <Sidebar />
 
-        <main className="flex-1 p-8">
-          {children}
-        </main>
+        <div className="ml-64 flex min-h-screen flex-1 flex-col">
+
+          <Navbar />
+
+          <main className="flex-1">
+            <div className="mx-auto w-full max-w-7xl px-8 py-8">
+              {children}
+            </div>
+          </main>
+
+        </div>
+
       </div>
     </div>
   );

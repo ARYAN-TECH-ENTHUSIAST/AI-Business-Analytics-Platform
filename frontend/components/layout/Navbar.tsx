@@ -16,25 +16,33 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-
     toast.success("Logged out successfully");
-
     router.push("/login");
   };
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-white px-8">
+    <header className="sticky top-0 z-30 border-b border-gray-200 bg-white/95 backdrop-blur">
 
-      <h2 className="text-xl font-semibold">
-        {titles[pathname] ?? "AI Business Intelligence"}
-      </h2>
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
 
-      <button
-        onClick={handleLogout}
-        className="rounded-lg border px-4 py-2 text-sm transition hover:bg-gray-100"
-      >
-        Logout
-      </button>
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {titles[pathname] ?? "AI Business Intelligence"}
+          </h1>
+
+          <p className="mt-1 text-sm text-gray-500">
+            Business Intelligence & Analytics Platform
+          </p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          className="rounded-xl border border-gray-200 px-5 py-2.5 font-medium transition hover:bg-gray-100"
+        >
+          Logout
+        </button>
+
+      </div>
 
     </header>
   );
