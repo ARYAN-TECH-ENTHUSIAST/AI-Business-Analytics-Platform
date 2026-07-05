@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+
 import { isAuthenticated } from "@/services/auth";
 
 interface Props {
@@ -16,6 +17,8 @@ export default function DashboardLayout({
 }: Props) {
   const router = useRouter();
 
+  const [collapsed, setCollapsed] = useState(false);
+
   useEffect(() => {
     if (!isAuthenticated()) {
       router.replace("/login");
@@ -23,24 +26,30 @@ export default function DashboardLayout({
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="flex">
+    <div className="flex min-h-screen bg-gray-50">
 
-        <Sidebar />
+      <Sidebar
+        collapsed={collapsed}
+      />
 
-        <div className="ml-64 flex min-h-screen flex-1 flex-col">
+      <div
+        className={`flex flex-1 flex-col transition-all duration-300 ${
+          collapsed ? "ml-20" : "ml-64"
+        }`}
+      >
+        <Navbar
+          collapsed={collapsed}
+          toggleSidebar={() =>
+            setCollapsed((prev) => !prev)
+          }
+        />
 
-          <Navbar />
-
-          <main className="flex-1">
-            <div className="mx-auto w-full max-w-7xl px-8 py-8">
-              {children}
-            </div>
-          </main>
-
-        </div>
+        <main className="mx-auto w-full max-w-7xl flex-1 p-8">
+          {children}
+        </main>
 
       </div>
+
     </div>
   );
 }

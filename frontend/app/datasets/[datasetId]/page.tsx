@@ -98,7 +98,11 @@ export default function DatasetPreviewPage() {
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid
+              grid-cols-1
+              gap-6
+              sm:grid-cols-2
+              xl:grid-cols-4">
               {dashboard.kpis.map((kpi) => (
                 <ProfileCard
                   key={kpi.title}
@@ -126,7 +130,11 @@ export default function DatasetPreviewPage() {
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid
+              grid-cols-1
+              gap-6
+              md:grid-cols-2
+              xl:grid-cols-3">
 
               <ProfileCard
                 title="Rows"

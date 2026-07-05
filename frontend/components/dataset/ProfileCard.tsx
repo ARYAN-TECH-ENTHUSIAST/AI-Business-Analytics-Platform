@@ -10,7 +10,7 @@ export default function ProfileCard({
   value,
 }: Props) {
   return (
-    <Card className="h-full">
+    <Card className="min-h-[130px] flex flex-col justify-center">
 
       <div className="space-y-2">
 
@@ -18,7 +18,7 @@ export default function ProfileCard({
           {title}
         </p>
 
-        <h2 className="text-3xl font-bold text-gray-900">
+        <h2 className="mt-3 text-4xl font-bold tracking-tight">
           {value}
         </h2>
 

@@ -10,39 +10,40 @@ interface Props {
 export default function ChartsSection({
   charts,
 }: Props) {
-  return (
-    <section className="space-y-6">
+  const availableCharts = [
+    charts.bar_chart,
+    charts.pie_chart,
+  ].filter(Boolean);
 
-      <div>
+  if (availableCharts.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-12 text-center">
+        <h3 className="text-lg font-semibold text-gray-700">
+          No charts available
+        </h3>
 
-        <h2 className="text-2xl font-semibold">
-          Visualizations
-        </h2>
-
-        <p className="mt-1 text-gray-500">
-          Interactive charts generated from your dataset.
+        <p className="mt-2 text-sm text-gray-500">
+          Upload a richer dataset to generate visualizations.
         </p>
-
       </div>
+    );
+  }
 
-      <div className="grid gap-6 xl:grid-cols-2">
+  return (
+    <div className="grid gap-6 lg:grid-cols-2">
+      {charts.bar_chart && (
+        <ChartCard
+          chart={charts.bar_chart}
+          type="bar"
+        />
+      )}
 
-        {charts.bar_chart && (
-          <ChartCard
-            chart={charts.bar_chart}
-            type="bar"
-          />
-        )}
-
-        {charts.pie_chart && (
-          <ChartCard
-            chart={charts.pie_chart}
-            type="pie"
-          />
-        )}
-
-      </div>
-
-    </section>
+      {charts.pie_chart && (
+        <ChartCard
+          chart={charts.pie_chart}
+          type="pie"
+        />
+      )}
+    </div>
   );
 }
