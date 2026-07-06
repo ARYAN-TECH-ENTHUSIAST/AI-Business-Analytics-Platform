@@ -22,12 +22,17 @@ import { useAI } from "@/hooks/useAI";
 
 import Card from "@/components/ui/Card";
 
+import { FileDown } from "lucide-react";
+import { downloadPDFReport } from "@/services/dataset";
+
 export default function DatasetPreviewPage() {
   const params = useParams();
 
   const datasetId = Number(params.datasetId);
 
   const [generateAI, setGenerateAI] = useState(false);
+
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
 
   const {
     data: preview,
@@ -113,42 +118,75 @@ export default function DatasetPreviewPage() {
                 </p>
               </div>
 
-              <button
-                onClick={() => setGenerateAI(true)}
-                disabled={aiLoading}
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
+              <div className="flex flex-wrap gap-3">
 
-                  rounded-[18px]
+                <button
+                  onClick={() => setGenerateAI(true)}
+                  disabled={aiLoading}
+                  className="
+      inline-flex
+      items-center
+      rounded-[18px]
+      bg-emerald-700
+      px-6
+      py-3
+      font-semibold
+      text-white
+      shadow-md
+      transition-all
+      duration-200
+      hover:-translate-y-0.5
+      hover:bg-emerald-800
+      hover:shadow-lg
+      disabled:opacity-60
+    "
+                >
+                  {aiLoading
+                    ? "Generating..."
+                    : aiInsights
+                      ? "Regenerate AI Insights"
+                      : "Generate AI Insights"}
+                </button>
 
-                  bg-emerald-700
+                <button
+                  onClick={async () => {
+                    try {
+                      setDownloadingPdf(true);
 
-                  px-6
-                  py-3
+                      await downloadPDFReport(datasetId);
+                    } finally {
+                      setDownloadingPdf(false);
+                    }
+                  }}
+                  disabled={downloadingPdf}
+                  className="
+      inline-flex
+      items-center
+      gap-2
+      rounded-[18px]
+      border
+      border-slate-300
+      bg-white
+      px-6
+      py-3
+      font-semibold
+      text-slate-700
+      transition-all
+      duration-200
+      hover:border-emerald-300
+      hover:bg-emerald-50
+      hover:text-emerald-700
+      disabled:opacity-60
+    "
+                >
+                  <FileDown size={18} />
 
-                  font-semibold
-                  text-white
+                  {downloadingPdf
+                    ? "Exporting..."
+                    : "Export PDF Report"}
+                </button>
 
-                  shadow-md
-
-                  transition-all
-                  duration-200
-
-                  hover:-translate-y-0.5
-                  hover:bg-emerald-800
-                  hover:shadow-lg
-
-                  disabled:opacity-60
-              "
-              >
-                {aiLoading
-                  ? "Generating..."
-                  : aiInsights
-                    ? "Regenerate AI Insights"
-                    : "Generate AI Insights"}
-              </button>
+              </div>
 
             </div>
 
@@ -358,7 +396,7 @@ export default function DatasetPreviewPage() {
           )}
 
         </section>
-        </div>
+      </div>
     </DashboardLayout>
   );
 }
