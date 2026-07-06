@@ -1,34 +1,10 @@
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-.env
-
-# Node
-node_modules/
-.next/
+# OS
+.DS_Store
+Thumbs.db
 
 # IDE
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
 *.log
-
-# Database
-*.db
-
-# Environment
-.env.*
-
-# Build
-dist/
-build/
-
-# Misc
-coverage/
-backend/uploads/
