@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
+/* =========================
+   Design System
+========================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background: #f5f7f4;
+  --surface: #fbfcfb;
+  --card: #ffffff;
+
+  /* Text */
+  --foreground: #17212b;
+  --muted: #64748b;
+
+  /* Brand */
+  --primary: #166534;
+  --primary-light: #22c55e;
+  --secondary: #0f766e;
+
+  /* UI */
+  --border: #e2e8f0;
+  --radius: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 10px 28px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+
+  --color-border: var(--border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================
+   Base
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(22, 101, 52, 0.05),
+      transparent 28%),
+
+    radial-gradient(circle at bottom right,
+      rgba(15, 118, 110, 0.05),
+      transparent 32%),
+
+    linear-gradient(
+      180deg,
+      #fafcf9 0%,
+      #f5f7f4 100%
+    );
+}
+
+/* =========================
+   Typography
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #17212b;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: #556274;
+  line-height: 1.7;
+}
+
+/* =========================
+   Selection
+========================= */
+
+::selection {
+  background: #166534;
+  color: white;
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cfd8d2;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b7c4bc;
+}
+
+/* =========================
+   Smooth UI
+========================= */
+
+button,
+a,
+input,
+textarea,
+select {
+  transition:
+    background-color .22s ease,
+    border-color .22s ease,
+    color .22s ease,
+    box-shadow .22s ease,
+    transform .22s ease;
 }

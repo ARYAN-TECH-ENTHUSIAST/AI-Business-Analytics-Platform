@@ -20,6 +20,8 @@ import { useDashboard } from "@/hooks/useDashboard";
 import { useCharts } from "@/hooks/useCharts";
 import { useAI } from "@/hooks/useAI";
 
+import Card from "@/components/ui/Card";
+
 export default function DatasetPreviewPage() {
   const params = useParams();
 
@@ -59,50 +61,98 @@ export default function DatasetPreviewPage() {
     <DashboardLayout>
       <div className="space-y-14">
 
-        {/* Page Header */}
+        {/* ================= Header ================= */}
 
-        <div className="flex items-start justify-between">
+        <section className="rounded-[24px] border border-slate-200 bg-white p-8 shadow-[0_10px_35px_rgba(15,23,42,.05)]">
 
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900">
-              Dataset Analysis
-            </h1>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
-            <p className="mt-2 text-gray-600">
-              Explore your dataset with automated analytics,
-              visualizations and AI-generated business insights.
-            </p>
+            <div>
+
+              <div className="mb-4 inline-flex items-center rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-semibold text-emerald-700">
+                Dataset Intelligence
+              </div>
+
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+                Dataset Analysis
+              </h1>
+
+              <p className="mt-3 max-w-2xl text-lg leading-8 text-slate-600">
+                Explore your uploaded dataset through automated profiling,
+                statistical analysis, visualizations and AI-powered business
+                recommendations.
+              </p>
+
+            </div>
+
+            <Link
+              href="/workspaces"
+              className="inline-flex items-center justify-center rounded-[18px] border border-slate-300 bg-white px-6 py-3 font-medium text-slate-700 transition-all duration-200 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700"
+            >
+              ← Back to Workspaces
+            </Link>
+
           </div>
 
-          <Link
-            href="/workspaces"
-            className="rounded-xl border border-gray-300 px-5 py-2.5 transition hover:bg-gray-100"
-          >
-            ← Back to Workspaces
-          </Link>
-
-        </div>
+        </section>
 
         {/* ===================== Overview ===================== */}
 
         {dashboard && (
           <section className="space-y-6">
 
-            <div>
-              <h2 className="text-2xl font-bold">
-                Overview
-              </h2>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
 
-              <p className="mt-1 text-gray-500">
-                High-level KPIs for your uploaded dataset.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">
+                  Dataset Overview
+                </h2>
+
+                <p className="mt-2 text-slate-500">
+                  High-level business metrics generated from your uploaded dataset.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setGenerateAI(true)}
+                disabled={aiLoading}
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+
+                  rounded-[18px]
+
+                  bg-emerald-700
+
+                  px-6
+                  py-3
+
+                  font-semibold
+                  text-white
+
+                  shadow-md
+
+                  transition-all
+                  duration-200
+
+                  hover:-translate-y-0.5
+                  hover:bg-emerald-800
+                  hover:shadow-lg
+
+                  disabled:opacity-60
+              "
+              >
+                {aiLoading
+                  ? "Generating..."
+                  : aiInsights
+                    ? "Regenerate AI Insights"
+                    : "Generate AI Insights"}
+              </button>
+
             </div>
 
-            <div className="grid
-              grid-cols-1
-              gap-6
-              sm:grid-cols-2
-              xl:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
               {dashboard.kpis.map((kpi) => (
                 <ProfileCard
                   key={kpi.title}
@@ -115,26 +165,23 @@ export default function DatasetPreviewPage() {
           </section>
         )}
 
+
         {/* ================= Dataset Statistics ================= */}
 
         {profile && (
           <section className="space-y-6">
 
             <div>
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-2xl font-bold text-slate-900">
                 Dataset Statistics
               </h2>
 
-              <p className="mt-1 text-gray-500">
-                Basic information about the uploaded dataset.
+              <p className="mt-2 text-slate-500">
+                Structural information extracted from the uploaded dataset.
               </p>
             </div>
 
-            <div className="grid
-              grid-cols-1
-              gap-6
-              md:grid-cols-2
-              xl:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
 
               <ProfileCard
                 title="Rows"
@@ -155,19 +202,18 @@ export default function DatasetPreviewPage() {
 
           </section>
         )}
-
         {/* ================= Analytics ================= */}
 
         {profile && (
           <section className="space-y-6">
 
             <div>
-              <h2 className="text-2xl font-bold">
-                Analytics
+              <h2 className="text-2xl font-bold text-slate-900">
+                Data Profiling
               </h2>
 
-              <p className="mt-1 text-gray-500">
-                Explore dataset structure and column quality.
+              <p className="mt-2 text-slate-500">
+                Review column quality, missing values and statistical summaries before generating insights.
               </p>
             </div>
 
@@ -190,17 +236,28 @@ export default function DatasetPreviewPage() {
         {charts && (
           <section className="space-y-6">
 
-            <div>
-              <h2 className="text-2xl font-bold">
-                Visualizations
-              </h2>
+            <div className="flex items-end justify-between">
 
-              <p className="mt-1 text-gray-500">
-                Automatically generated charts based on the dataset.
-              </p>
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">
+                  Visual Analytics
+                </h2>
+
+                <p className="mt-2 text-slate-500">
+                  Automatically generated charts to help identify patterns,
+                  trends and relationships within your data.
+                </p>
+              </div>
+
+              <span className="rounded-full bg-slate-100 px-4 py-1 text-sm font-medium text-slate-600">
+                Auto Generated
+              </span>
+
             </div>
 
-            <ChartsSection charts={charts} />
+            <div className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm">
+              <ChartsSection charts={charts} />
+            </div>
 
           </section>
         )}
@@ -209,47 +266,50 @@ export default function DatasetPreviewPage() {
 
         <section className="space-y-6">
 
-          <div className="flex items-center justify-between">
+          <div>
 
-            <div>
-
-              <h2 className="text-2xl font-bold">
-                AI Business Insights
-              </h2>
-
-              <p className="mt-1 text-gray-500">
-                Powered by Google Gemini 2.5 Flash
-              </p>
-
+            <div className="mb-3 inline-flex items-center rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
+              AI Powered
             </div>
 
-            <button
-              onClick={() => setGenerateAI(true)}
-              disabled={aiLoading}
-              className="rounded-xl bg-black px-5 py-3 font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {aiLoading
-                ? "Generating..."
-                : aiInsights
-                ? "🔄 Regenerate Insights"
-                : "✨ Generate AI Insights"}
-            </button>
+            <h2 className="text-2xl font-bold text-slate-900">
+              Business Insights
+            </h2>
+
+            <p className="mt-2 text-slate-500">
+              Executive summary, key findings and recommendations generated from your dataset.
+            </p>
 
           </div>
 
           {aiLoading && (
-            <div className="animate-pulse space-y-4 rounded-2xl border bg-white p-6">
-              <div className="h-6 w-1/3 rounded bg-gray-200" />
-              <div className="h-4 w-full rounded bg-gray-200" />
-              <div className="h-4 w-5/6 rounded bg-gray-200" />
-              <div className="h-4 w-2/3 rounded bg-gray-200" />
+            <div className="rounded-[22px] border border-slate-200 bg-white p-8 shadow-sm">
+
+              <div className="animate-pulse space-y-4">
+
+                <div className="h-6 w-48 rounded bg-slate-200" />
+
+                <div className="h-4 w-full rounded bg-slate-200" />
+
+                <div className="h-4 w-5/6 rounded bg-slate-200" />
+
+                <div className="h-4 w-2/3 rounded bg-slate-200" />
+
+              </div>
+
             </div>
           )}
 
           {aiError && (
-            <div className="rounded-xl border border-yellow-300 bg-yellow-50 p-4">
-              AI is currently unavailable. Please check your Gemini configuration.
-            </div>
+            <Card className="border-yellow-200 bg-yellow-50">
+              <p className="font-medium text-yellow-700">
+                AI insights are currently unavailable.
+              </p>
+
+              <p className="mt-2 text-sm text-yellow-600">
+                Please verify your Gemini API configuration and try again.
+              </p>
+            </Card>
           )}
 
           {aiInsights && (
@@ -263,37 +323,42 @@ export default function DatasetPreviewPage() {
         <section className="space-y-6">
 
           <div>
-            <h2 className="text-2xl font-bold">
+
+            <h2 className="text-2xl font-bold text-slate-900">
               Dataset Preview
             </h2>
 
-            <p className="mt-1 text-gray-500">
-              First 20 rows from the uploaded dataset.
+            <p className="mt-2 text-slate-500">
+              Preview the first rows exactly as they were uploaded.
             </p>
+
           </div>
 
           {isLoading && (
-            <div className="rounded-2xl border bg-white p-8 text-center">
-              Loading preview...
-            </div>
+            <Card className="py-12 text-center">
+              Loading dataset preview...
+            </Card>
           )}
 
           {isError && (
-            <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center text-red-600">
-              Failed to load dataset preview.
-            </div>
+            <Card className="border-red-200 bg-red-50 py-12 text-center">
+              <p className="font-medium text-red-600">
+                Failed to load dataset preview.
+              </p>
+            </Card>
           )}
 
           {!isLoading && !isError && preview && (
-            <DatasetPreviewTable
-              columns={preview.columns}
-              rows={preview.rows}
-            />
+            <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm">
+              <DatasetPreviewTable
+                columns={preview.columns}
+                rows={preview.rows}
+              />
+            </div>
           )}
 
         </section>
-
-      </div>
+        </div>
     </DashboardLayout>
   );
 }
