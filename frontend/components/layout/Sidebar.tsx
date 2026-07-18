@@ -47,18 +47,30 @@ export default function Sidebar({
     <aside
       className={`
         fixed
-        left-0
-        top-0
+        left-4
+        top-4
+        bottom-4
+
         flex
-        h-screen
         flex-col
-        border-r
-        border-slate-200/80
-        bg-[#fbfcfb]/95
+
+        rounded-[30px]
+
+        border
+        border-emerald-100/70
+
+        bg-gradient-to-b
+        from-[#fbfefc]
+        via-[#f5faf7]
+        to-[#eef6f2]
+
+        shadow-[0_20px_60px_rgba(15,23,42,.08)]
         backdrop-blur-xl
+
         transition-[width]
         duration-300
         ease-[cubic-bezier(0.22,1,0.36,1)]
+
         ${collapsed ? "w-20" : "w-72"}
       `}
     >
@@ -68,7 +80,7 @@ export default function Sidebar({
 
         <div className="flex items-center">
 
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-700 shadow-lg shadow-emerald-700/20">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 shadow-[0_16px_34px_rgba(16,185,129,.35)]">
             <Sparkles
               size={22}
               className="text-white"
@@ -125,8 +137,8 @@ export default function Sidebar({
                 ease-[cubic-bezier(0.22,1,0.36,1)]
                 ${
                   active
-                    ? "bg-emerald-700 text-white shadow-lg shadow-emerald-700/20"
-                    : "text-slate-600 hover:bg-emerald-50 hover:text-emerald-700"
+                    ? "bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-600 text-white shadow-[0_10px_28px_rgba(16,185,129,.28)]"
+                    : "text-slate-600 hover:bg-white hover:text-emerald-700 hover:shadow-md"
                 }
               `}
             >
@@ -174,8 +186,8 @@ export default function Sidebar({
             transition-all
             duration-300
             ease-[cubic-bezier(0.22,1,0.36,1)]
-            hover:bg-red-50
-            hover:text-red-600
+            hover:bg-white
+            hover:shadow-md
           "
         >
           <LogOut
@@ -211,7 +223,7 @@ export default function Sidebar({
           `}
         >
           <p className="text-center text-xs tracking-wide text-slate-400">
-            Version 1.0
+            AI BI Platform v1.0
           </p>
         </div>
 

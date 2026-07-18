@@ -20,26 +20,59 @@ export default function DashboardPage() {
       <div className="space-y-10">
         {/* Hero */}
 
-        <section className="rounded-[24px] border border-slate-200 bg-white p-8 shadow-[0_10px_35px_rgba(15,23,42,.05)]">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <section
+          className="
+            relative
+            overflow-hidden
+            rounded-[28px]
+            border
+            border-emerald-100
+            bg-gradient-to-br
+            from-white
+            via-emerald-50
+            to-cyan-50
+            p-10
+            shadow-[0_18px_60px_rgba(15,23,42,0.08)]
+          "
+        >
+
+          {/* Decorative Blur */}
+
+          <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-emerald-300/20 blur-3xl" />
+
+          <div className="absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-cyan-300/20 blur-3xl" />
+
+          <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+
             <div className="max-w-2xl">
-              <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+
+              <div className="mb-4 inline-flex rounded-full border border-emerald-200 bg-white/70 px-4 py-1.5 text-sm font-semibold text-emerald-700 backdrop-blur">
+                AI Powered Analytics
+              </div>
+
+              <h1 className="text-5xl font-extrabold tracking-tight text-slate-900">
                 Welcome back 👋
               </h1>
 
-              <p className="mt-3 text-lg text-slate-600">
-                Upload datasets, generate AI insights and build business
-                intelligence reports from your workspaces.
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                Transform raw datasets into business intelligence,
+                interactive dashboards and AI-generated insights —
+                all from one modern analytics platform.
               </p>
+
             </div>
 
             <Link href="/workspaces">
-              <Button className="px-6">
-                <FolderPlus size={18} />
+
+              <Button className="px-8 py-4 text-base shadow-xl">
+                <FolderPlus size={20} />
                 Create Workspace
               </Button>
+
             </Link>
+
           </div>
+
         </section>
 
         {/* Recent Workspaces */}

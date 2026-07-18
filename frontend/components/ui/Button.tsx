@@ -21,26 +21,33 @@ export default function Button({
         justify-center
         gap-2
 
-        rounded-[18px]
+        rounded-2xl
 
         px-5
         py-3
 
         text-sm
         font-semibold
+        tracking-wide
 
         text-white
 
-        bg-emerald-700
+        bg-gradient-to-r
+        from-emerald-600
+        via-emerald-600
+        to-teal-600
 
-        shadow-md
+        shadow-[0_10px_24px_rgba(5,150,105,0.25)]
 
         transition-all
-        duration-200
+        duration-300
+        ease-[cubic-bezier(0.22,1,0.36,1)]
 
-        hover:bg-emerald-800
-        hover:-translate-y-0.5
-        hover:shadow-lg
+        hover:-translate-y-1
+        hover:scale-[1.02]
+        hover:shadow-[0_18px_38px_rgba(5,150,105,0.35)]
+        hover:from-emerald-500
+        hover:to-teal-500
 
         active:translate-y-0
         active:scale-[0.98]
@@ -48,11 +55,12 @@ export default function Button({
         disabled:cursor-not-allowed
         disabled:opacity-60
         disabled:hover:translate-y-0
-        disabled:hover:shadow-md
+        disabled:hover:scale-100
+        disabled:hover:shadow-[0_10px_24px_rgba(5,150,105,0.25)]
 
         focus:outline-none
         focus:ring-4
-        focus:ring-emerald-100
+        focus:ring-emerald-200
 
         ${className}
       `}

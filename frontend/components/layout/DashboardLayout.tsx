@@ -28,7 +28,7 @@ export default function DashboardLayout({
   }, [router]);
 
   return (
-    <div className="relative flex min-h-screen bg-gray-50">
+    <div className="relative min-h-screen overflow-x-hidden bg-transparent">
 
       <Sidebar collapsed={collapsed} />
 
@@ -38,40 +38,45 @@ export default function DashboardLayout({
         onClick={() => setCollapsed((prev) => !prev)}
         aria-label="Toggle Sidebar"
         className={`
+          glass
+          soft-shadow
+
           fixed
           top-10
           z-50
 
           flex
-          h-9
-          w-9
+          h-11
+          w-5
           items-center
           justify-center
 
-          rounded-full
+          rounded-r-full
 
           border
-          border-slate-200
+          border-l-0
+          border-emerald-100/80
 
-          bg-white
-
-          shadow-lg
+          bg-white/90
 
           transition-all
           duration-300
           ease-[cubic-bezier(0.22,1,0.36,1)]
 
-          hover:scale-105
-          hover:border-emerald-300
-          hover:shadow-xl
+          hover:w-6
+          hover:bg-emerald-50
+
+          active:scale-95
         `}
         style={{
-          left: collapsed ? "70px" : "256px",
+          left: collapsed ? "92px" : "286px",
         }}
       >
         <PanelLeftClose
-          size={19}
+          size={14}
+          strokeWidth={2.5}
           className={`
+            text-slate-600
             transition-transform
             duration-300
             ${collapsed ? "rotate-180" : ""}
@@ -82,17 +87,17 @@ export default function DashboardLayout({
       <div
         className={`
           flex
-          flex-1
+          min-h-screen
           flex-col
           transition-[margin]
           duration-300
           ease-[cubic-bezier(0.22,1,0.36,1)]
-          ${collapsed ? "ml-20" : "ml-72"}
+          ${collapsed ? "ml-28" : "ml-80"}
         `}
       >
         <Navbar />
 
-        <main className="mx-auto w-full max-w-7xl flex-1 p-8">
+        <main className="mx-auto w-full max-w-[1500px] flex-1 px-8 pb-8 pt-6">
           {children}
         </main>
 
