@@ -38,11 +38,7 @@ export default function Navbar({}: Props) {
 
           </div>
 
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
-            Dashboard
-          </h1>
-
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-2 text-sm leading-relaxed text-slate-500">
             Intelligent analytics and AI-powered decision making
           </p>
 

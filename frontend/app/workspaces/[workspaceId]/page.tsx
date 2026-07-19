@@ -9,6 +9,7 @@ import DatasetCard from "@/components/dataset/DatasetCard";
 import Card from "@/components/ui/Card";
 
 import { useDatasets } from "@/hooks/useDatasets";
+import { useWorkspace } from "@/hooks/useWorkspaces";
 
 export default function WorkspaceDetailsPage() {
   const params = useParams();
@@ -20,6 +21,10 @@ export default function WorkspaceDetailsPage() {
     isLoading,
     isError,
   } = useDatasets(workspaceId);
+
+  const {
+  data: workspace,
+} = useWorkspace(workspaceId);
 
   return (
     <DashboardLayout>
@@ -50,11 +55,11 @@ export default function WorkspaceDetailsPage() {
           <div className="relative">
 
           <h1 className="text-5xl font-extrabold tracking-tight text-slate-900">
-            Workspace
+            {workspace?.name ?? "Workspace"}
           </h1>
 
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-            Upload, organize and explore datasets inside this workspace.
+            {workspace?.description || "No description provided."}
           </p>
           </div>
 
