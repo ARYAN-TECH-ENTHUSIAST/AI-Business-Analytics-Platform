@@ -64,7 +64,7 @@ export default function DatasetPreviewPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-14">
+      <div className="space-y-12 pb-8">
 
         {/* ================= Header ================= */}
 
@@ -104,16 +104,16 @@ export default function DatasetPreviewPage() {
         {/* ===================== Overview ===================== */}
 
         {dashboard && (
-          <section className="space-y-6">
+          <section className="space-y-5">
 
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
 
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900">
                   Dataset Overview
                 </h2>
 
-                <p className="mt-2 text-slate-500">
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
                   High-level business metrics generated from your uploaded dataset.
                 </p>
               </div>
@@ -139,6 +139,7 @@ export default function DatasetPreviewPage() {
       hover:bg-emerald-800
       hover:shadow-lg
       disabled:opacity-60
+      disabled:cursor-not-allowed
     "
                 >
                   {aiLoading
@@ -177,20 +178,21 @@ export default function DatasetPreviewPage() {
       hover:bg-emerald-50
       hover:text-emerald-700
       disabled:opacity-60
+      disabled:cursor-not-allowed
     "
                 >
-                  <FileDown size={18} />
+                  <FileDown size={18} className="shrink-0" />
 
                   {downloadingPdf
-                    ? "Exporting..."
-                    : "Export PDF Report"}
+                    ? "Generating PDF..."
+                    : "Download PDF Report"}
                 </button>
 
               </div>
 
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {dashboard.kpis.map((kpi) => (
                 <ProfileCard
                   key={kpi.title}
@@ -207,19 +209,19 @@ export default function DatasetPreviewPage() {
         {/* ================= Dataset Statistics ================= */}
 
         {profile && (
-          <section className="space-y-6">
+          <section className="space-y-5">
 
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900">
                 Dataset Statistics
               </h2>
 
-              <p className="mt-2 text-slate-500">
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
                 Structural information extracted from the uploaded dataset.
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-5 md:grid-cols-3">
 
               <ProfileCard
                 title="Rows"
@@ -243,14 +245,14 @@ export default function DatasetPreviewPage() {
         {/* ================= Analytics ================= */}
 
         {profile && (
-          <section className="space-y-6">
+          <section className="space-y-5">
 
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900">
                 Data Profiling
               </h2>
 
-              <p className="mt-2 text-slate-500">
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
                 Review column quality, missing values and statistical summaries before generating insights.
               </p>
             </div>
@@ -272,16 +274,16 @@ export default function DatasetPreviewPage() {
         {/* ================= Visualizations ================= */}
 
         {charts && (
-          <section className="space-y-6">
+          <section className="space-y-5">
 
             <div className="flex items-end justify-between">
 
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900">
                   Visual Analytics
                 </h2>
 
-                <p className="mt-2 text-slate-500">
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
                   Automatically generated charts to help identify patterns,
                   trends and relationships within your data.
                 </p>
@@ -302,7 +304,7 @@ export default function DatasetPreviewPage() {
 
         {/* ================= AI Insights ================= */}
 
-        <section className="space-y-6">
+        <section className="space-y-5">
 
           <div>
 
@@ -310,11 +312,11 @@ export default function DatasetPreviewPage() {
               AI Powered
             </div>
 
-            <h2 className="text-2xl font-bold text-slate-900">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               Business Insights
             </h2>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
               Executive summary, key findings and recommendations generated from your dataset.
             </p>
 
@@ -358,28 +360,28 @@ export default function DatasetPreviewPage() {
 
         {/* ================= Dataset Preview ================= */}
 
-        <section className="space-y-6">
+        <section className="space-y-5">
 
           <div>
 
-            <h2 className="text-2xl font-bold text-slate-900">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               Dataset Preview
             </h2>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
               Preview the first rows exactly as they were uploaded.
             </p>
 
           </div>
 
           {isLoading && (
-            <Card className="py-12 text-center">
+            <Card className="py-16 text-center">
               Loading dataset preview...
             </Card>
           )}
 
           {isError && (
-            <Card className="border-red-200 bg-red-50 py-12 text-center">
+            <Card className="border-red-200 bg-red-50 py-16 text-center">
               <p className="font-medium text-red-600">
                 Failed to load dataset preview.
               </p>
@@ -387,7 +389,7 @@ export default function DatasetPreviewPage() {
           )}
 
           {!isLoading && !isError && preview && (
-            <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm ring-1 ring-slate-100">
               <DatasetPreviewTable
                 columns={preview.columns}
                 rows={preview.rows}

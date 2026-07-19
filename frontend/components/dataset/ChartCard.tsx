@@ -21,12 +21,12 @@ interface Props {
 }
 
 const COLORS = [
-  "#2563eb",
-  "#16a34a",
+  "#10b981",
+  "#0ea5e9",
+  "#6366f1",
   "#f59e0b",
   "#ef4444",
   "#8b5cf6",
-  "#06b6d4",
 ];
 
 export default function ChartCard({
@@ -41,28 +41,57 @@ export default function ChartCard({
   if (data.length === 0) return null;
 
   return (
-    <Card>
-      <h3 className="mb-6 text-lg font-semibold">
-        {chart.title}
-      </h3>
+    <Card className="overflow-hidden border border-slate-200/80 shadow-sm ring-1 ring-slate-100">
+      <div className="mb-6 flex items-start justify-between border-b border-slate-100 pb-4">
+        <h3 className="text-lg font-bold tracking-tight text-slate-900">
+          {chart.title}
+        </h3>
 
-      <div className="h-[340px]">
+        <p className="mt-1 text-sm text-slate-500">
+          Automatically generated visualization
+        </p>
+      </div>
+      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+        {type === "bar" ? "Bar Chart" : "Pie Chart"}
+      </span>
+
+      <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           {type === "bar" ? (
             <ReBarChart data={data}>
               <XAxis
                 dataKey="label"
-                tick={{ fontSize: 12 }}
+                tick={{
+                  fontSize: 12,
+                  fill: "#64748b",
+                }}
+                tickLine={false}
+                axisLine={false}
               />
 
-              <YAxis />
+              <YAxis
+                tick={{
+                  fontSize: 12,
+                  fill: "#64748b",
+                }}
+                tickLine={false}
+                axisLine={false}
+              />
 
-              <Tooltip />
+              <Tooltip
+                cursor={{ fill: "#f8fafc" }}
+                contentStyle={{
+                  borderRadius: 16,
+                  border: "1px solid #e2e8f0",
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0 16px 40px rgba(15,23,42,0.12)",
+                }}
+              />
 
               <Bar
                 dataKey="value"
                 radius={[6, 6, 0, 0]}
-                fill="#2563eb"
+                fill="#10b981"
               />
             </ReBarChart>
           ) : (
@@ -71,7 +100,7 @@ export default function ChartCard({
                 data={data}
                 dataKey="value"
                 nameKey="label"
-                outerRadius={110}
+                outerRadius={115}
               >
                 {data.map((_, index) => (
                   <Cell
@@ -85,7 +114,14 @@ export default function ChartCard({
                 ))}
               </Pie>
 
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  borderRadius: 16,
+                  border: "1px solid #e2e8f0",
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0 16px 40px rgba(15,23,42,0.12)",
+                }}
+              />
             </RePieChart>
           )}
         </ResponsiveContainer>

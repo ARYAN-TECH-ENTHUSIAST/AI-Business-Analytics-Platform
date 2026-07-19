@@ -17,12 +17,12 @@ export default function ChartsSection({
 
   if (availableCharts.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-12 text-center">
-        <h3 className="text-lg font-semibold text-gray-700">
+      <div className="rounded-[28px] border border-dashed border-slate-300 bg-gradient-to-br from-white via-slate-50 to-emerald-50/40 p-16 text-center shadow-sm ring-1 ring-slate-100">
+        <h3 className="text-xl font-semibold tracking-tight text-slate-900">
           No charts available
         </h3>
 
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500">
           Upload a richer dataset to generate visualizations.
         </p>
       </div>

@@ -27,15 +27,106 @@ export default function WorkspaceDetailsPage() {
 
         {/* Header */}
 
-        <section>
+        <section
+          className="
+            relative
+            overflow-hidden
+            rounded-[28px]
+            border
+            border-emerald-100
+            bg-gradient-to-br
+            from-white
+            via-emerald-50
+            to-cyan-50
+            p-10
+            shadow-[0_18px_60px_rgba(15,23,42,0.08)]
+          "
+        >
 
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+          <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-emerald-300/20 blur-3xl" />
+
+          <div className="absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-cyan-300/20 blur-3xl" />
+
+          <div className="relative">
+
+          <h1 className="text-5xl font-extrabold tracking-tight text-slate-900">
             Workspace
           </h1>
 
-          <p className="mt-2 max-w-2xl text-slate-600">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Upload, organize and explore datasets inside this workspace.
           </p>
+          </div>
+
+        </section>
+
+        <section className="grid gap-6 md:grid-cols-3">
+
+          <Card className="group">
+            <div className="flex items-center justify-between">
+
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  Datasets
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  {isLoading ? "--" : datasets?.length ?? 0}
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-emerald-100 p-4 transition-transform duration-300 group-hover:scale-110">
+                <Database
+                  size={26}
+                  className="text-emerald-700"
+                />
+              </div>
+
+            </div>
+          </Card>
+
+          <Card className="group">
+            <div className="flex items-center justify-between">
+
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  Upload Status
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  Ready
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-cyan-100 p-4 transition-transform duration-300 group-hover:scale-110">
+                <Upload
+                  size={26}
+                  className="text-cyan-700"
+                />
+              </div>
+
+            </div>
+          </Card>
+
+          <Card className="group">
+            <div className="flex items-center justify-between">
+
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  Analytics
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  AI Ready
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-violet-100 p-4">
+                ✨
+              </div>
+
+            </div>
+          </Card>
 
         </section>
 
@@ -58,9 +149,25 @@ export default function WorkspaceDetailsPage() {
           </div>
 
           {isLoading && (
-            <Card className="py-10 text-center">
-              Loading datasets...
-            </Card>
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <Card key={index}>
+                  <div className="animate-pulse space-y-5">
+
+                    <div className="h-12 w-12 rounded-2xl bg-slate-200" />
+
+                    <div className="h-5 w-40 rounded-full bg-slate-200" />
+
+                    <div className="space-y-2">
+                      <div className="h-4 w-full rounded-full bg-slate-200" />
+                      <div className="h-4 w-8/12 rounded-full bg-slate-100" />
+                    </div>
+
+                  </div>
+                </Card>
+              ))}
+
+            </div>
           )}
 
           {isError && (

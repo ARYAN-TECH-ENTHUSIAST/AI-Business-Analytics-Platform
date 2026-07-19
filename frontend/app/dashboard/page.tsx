@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, FolderPlus, FolderKanban } from "lucide-react";
+import {
+  ArrowRight,
+  FolderPlus,
+  FolderKanban,
+  Database,
+  Sparkles,
+  Activity,
+} from "lucide-react";
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import Button from "@/components/ui/Button";
@@ -75,6 +82,78 @@ export default function DashboardPage() {
 
         </section>
 
+
+
+        <section className="grid gap-6 md:grid-cols-3">
+          <Card className="group">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  Total Workspaces
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  {isLoading ? "--" : workspaces?.length ?? 0}
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-emerald-100 p-4 transition-transform duration-300 group-hover:scale-110">
+                <FolderKanban
+                  className="text-emerald-700"
+                  size={26}
+                />
+              </div>
+            </div>
+          </Card>
+
+          <Card className="group">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  Analytics Ready
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  AI
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-cyan-100 p-4 transition-transform duration-300 group-hover:scale-110">
+                <Database
+                  className="text-cyan-700"
+                  size={26}
+                />
+              </div>
+            </div>
+          </Card>
+
+          <Card className="group">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-slate-500">
+                  AI Insights
+                </p>
+
+                <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                  Ready
+                </h2>
+              </div>
+
+              <div className="rounded-2xl bg-violet-100 p-4 transition-transform duration-300 group-hover:scale-110">
+                <Sparkles
+                  className="text-violet-700"
+                  size={26}
+                />
+              </div>
+            </div>
+          </Card>
+
+        </section>
+
+
+
+
+
         {/* Recent Workspaces */}
 
         <section>
@@ -101,9 +180,22 @@ export default function DashboardPage() {
           </div>
 
           {isLoading && (
-            <Card>
-              <p className="text-slate-500">Loading workspaces...</p>
-            </Card>
+            <div className="grid gap-5">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <Card key={index}>
+                  <div className="animate-pulse space-y-4">
+
+                    <div className="h-5 w-52 rounded-full bg-slate-200" />
+
+                    <div className="h-4 w-full rounded-full bg-slate-200" />
+
+                    <div className="h-4 w-8/12 rounded-full bg-slate-100" />
+
+                  </div>
+                </Card>
+              ))}
+
+            </div>
           )}
 
           {!isLoading &&
@@ -146,21 +238,21 @@ export default function DashboardPage() {
                 key={workspace.id}
                 href={`/workspaces/${workspace.id}`}
               >
-                <Card className="cursor-pointer">
+                <Card className="group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="text-lg font-semibold text-slate-900">
                         {workspace.name}
                       </h3>
 
-                      <p className="mt-2 text-sm text-slate-500">
+                      <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-500">
                         {workspace.description || "No description provided."}
                       </p>
                     </div>
 
                     <ArrowRight
                       size={18}
-                      className="mt-1 text-slate-400"
+                      className="mt-1 text-slate-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-emerald-600"
                     />
                   </div>
                 </Card>

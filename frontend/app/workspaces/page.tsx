@@ -22,9 +22,11 @@ export default function WorkspacesPage() {
 
         {/* Header */}
 
-        <section className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <section className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-cyan-50 p-8 shadow-sm">
+          <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-300/20 blur-3xl" />
+          <div className="absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-emerald-300/20 blur-3xl" />
 
-          <div>
+          <div className="relative">
             <h1 className="text-4xl font-bold tracking-tight text-slate-900">
               Workspaces
             </h1>
@@ -33,6 +35,10 @@ export default function WorkspacesPage() {
               Organize datasets, analytics and AI insights into dedicated
               business workspaces.
             </p>
+
+            <div className="mt-6 inline-flex items-center rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-sm font-semibold text-emerald-700 backdrop-blur">
+              Workspace Management
+            </div>
           </div>
 
         </section>
@@ -56,13 +62,29 @@ export default function WorkspacesPage() {
           </div>
 
           {isLoading && (
-            <Card className="py-10 text-center">
-              Loading workspaces...
-            </Card>
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Card key={index}>
+                  <div className="animate-pulse space-y-5">
+
+                    <div className="h-12 w-12 rounded-2xl bg-slate-200" />
+
+                    <div className="h-6 w-40 rounded-full bg-slate-200" />
+
+                    <div className="space-y-2">
+                      <div className="h-4 w-full rounded-full bg-slate-200" />
+                      <div className="h-4 w-8/12 rounded-full bg-slate-100" />
+                    </div>
+
+                  </div>
+                </Card>
+              ))}
+
+            </div>
           )}
 
           {isError && (
-            <Card className="border-red-200 bg-red-50 py-10 text-center text-red-600">
+            <Card className="border-red-200 bg-gradient-to-br from-red-50 to-white py-10 text-center text-red-600">
               Failed to load workspaces.
             </Card>
           )}
@@ -111,15 +133,15 @@ export default function WorkspacesPage() {
 
         {/* Create Workspace */}
 
-        <section>
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
 
           <div className="mb-5">
 
-            <h2 className="text-xl font-semibold text-slate-900">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               Create New Workspace
             </h2>
 
-            <p className="mt-1 text-slate-500">
+            <p className="mt-2 text-slate-500">
               Start a new analytics project.
             </p>
 

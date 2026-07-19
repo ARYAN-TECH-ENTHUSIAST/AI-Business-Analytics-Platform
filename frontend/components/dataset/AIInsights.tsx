@@ -7,10 +7,10 @@ interface Props {
 
 export default function AIInsights({ insights }: Props) {
   return (
-    <Card>
-      <div className="flex items-start justify-between border-b pb-5">
+    <Card className="overflow-hidden border border-slate-200/80 shadow-sm ring-1 ring-slate-100">
+      <div className="flex items-start justify-between border-b border-slate-100 pb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
             🤖 AI Business Insights
           </h2>
 
@@ -19,29 +19,29 @@ export default function AIInsights({ insights }: Props) {
           </p>
         </div>
 
-        <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+        <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
           AI Powered
         </span>
       </div>
 
       <div className="mt-8 space-y-8">
 
-        <section className="rounded-xl border border-blue-100 bg-blue-50 p-6">
-          <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold text-blue-900">
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-sm">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold tracking-tight text-blue-900">
             📋 Executive Summary
           </h3>
 
-          <p className="leading-7 text-gray-700">
+          <p className="leading-8 text-gray-700">
             {insights.executive_summary}
           </p>
         </section>
 
-        <section className="rounded-xl border border-green-100 bg-green-50 p-6">
-          <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-green-900">
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-sm">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold tracking-tight text-green-900">
             🔍 Key Findings
           </h3>
 
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {insights.key_findings.map((item) => (
               <li
                 key={item}
@@ -49,7 +49,7 @@ export default function AIInsights({ insights }: Props) {
               >
                 <span className="mt-1 text-green-600">✓</span>
 
-                <span className="leading-7 text-gray-700">
+                <span className="leading-8 text-gray-700">
                   {item}
                 </span>
               </li>
@@ -57,12 +57,12 @@ export default function AIInsights({ insights }: Props) {
           </ul>
         </section>
 
-        <section className="rounded-xl border border-yellow-200 bg-yellow-50 p-6">
-          <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-yellow-900">
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-sm">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold tracking-tight text-yellow-900">
             ⚠ Data Quality Issues
           </h3>
 
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {insights.data_quality_issues.map((item) => (
               <li
                 key={item}
@@ -70,7 +70,7 @@ export default function AIInsights({ insights }: Props) {
               >
                 <span className="mt-1 text-yellow-600">⚠</span>
 
-                <span className="leading-7 text-gray-700">
+                <span className="leading-8 text-gray-700">
                   {item}
                 </span>
               </li>
@@ -78,12 +78,12 @@ export default function AIInsights({ insights }: Props) {
           </ul>
         </section>
 
-        <section className="rounded-xl border border-emerald-100 bg-emerald-50 p-6">
-          <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-emerald-900">
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-sm">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold tracking-tight text-emerald-900">
             💡 Recommendations
           </h3>
 
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {insights.recommendations.map((item) => (
               <li
                 key={item}
@@ -91,7 +91,7 @@ export default function AIInsights({ insights }: Props) {
               >
                 <span className="mt-1 text-emerald-600">✓</span>
 
-                <span className="leading-7 text-gray-700">
+                <span className="leading-8 text-gray-700">
                   {item}
                 </span>
               </li>
